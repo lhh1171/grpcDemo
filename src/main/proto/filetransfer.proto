@@ -1,0 +1,16 @@
+syntax = "proto3";
+package filetransfer;
+service FileTransferService {
+
+  rpc ServerSideStreamFun(RequestData) returns (stream ResponseData){}
+
+}
+message RequestData {
+  string text = 1;
+}
+
+message ResponseData {
+  string deviceId = 1;
+  string requestId = 2;
+  bytes fileData = 3;
+}
