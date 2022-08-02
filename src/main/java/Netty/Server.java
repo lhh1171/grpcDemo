@@ -1,5 +1,6 @@
-package two.way.stream;
+package Netty;
 
+import io.grpc.netty.NettyServerBuilder;
 import stream.ServiceImpl;
 import stream.StreamServiceGrpc;
 import stream.StreamServiceGrpc.StreamService;
@@ -9,9 +10,10 @@ import java.io.IOException;
 public class Server {
 	private static int port = 8883;
 	private static io.grpc.Server server;
+
 	public void run() {
 		StreamService serviceImpl = new ServiceImpl();
-		server = io.grpc.ServerBuilder.forPort(port).addService(StreamServiceGrpc.bindService(serviceImpl)).build();
+		server = NettyServerBuilder.forPort(50010).addService(StreamServiceGrpc.bindService(serviceImpl)).build();
 		try {
 			server.start();
 			System.out.println("Server start success on port:" + port);
