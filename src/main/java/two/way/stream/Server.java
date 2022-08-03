@@ -6,6 +6,7 @@ import stream.StreamServiceGrpc.StreamService;
 
 import java.io.IOException;
 
+//rpc请求接收器
 public class Server {
 	private static int port = 8883;
 	private static io.grpc.Server server;

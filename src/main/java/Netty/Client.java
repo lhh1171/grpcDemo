@@ -1,7 +1,6 @@
-package simple.fun;
+package Netty;
 
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.netty.NettyChannelBuilder;
 import stream.Stream.RequestData;
 import stream.Stream.ResponseData;
@@ -10,13 +9,14 @@ import stream.StreamServiceGrpc.StreamServiceBlockingStub;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class Client {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {	
 		ManagedChannel channel = NettyChannelBuilder.forAddress("localhost", 8883).usePlaintext(true).build();
 
-		StreamServiceBlockingStub stub = StreamServiceGrpc.newBlockingStub(channel);
+		StreamServiceBlockingStub stub = StreamServiceGrpc.newBlockingStub(channel).withDeadlineAfter(60000, TimeUnit.MILLISECONDS);
 		
 		long start = System.currentTimeMillis();
 		for (int i = 0; i < 10; i++) {
@@ -29,3 +29,16 @@ public class Client {
 		channel.shutdown();
 	}
 }
+//public class TestClient {
+//	private final TestRpcServiceGrpc.TestRpcServiceBlockingStub client;
+//	public TestClient(String host,int port) {
+//		ManagedChannel channel =  NettyChannelBuilder.forAddress(host, port).usePlaintext(true).build();
+//		client = TestRpcServiceGrpc.newBlockingStub(channel).withDeadlineAfter(60000, TimeUnit.MILLISECONDS);
+//	}
+//
+//	public String sayHello(String name,Integer id) {
+//		TestModel.TestRequest request = TestModel.TestRequest.newBuilder().setId(id).setName(name).build();
+//		TestModel.TestResponse response = client.sayHello(request);
+//		return response.getMessage();
+//	}
+//}

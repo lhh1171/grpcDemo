@@ -1,7 +1,6 @@
 package fun;
 
 import java.io.IOException;
-
 import stream.ServiceImpl;
 import stream.StreamServiceGrpc;
 import stream.StreamServiceGrpc.StreamService;

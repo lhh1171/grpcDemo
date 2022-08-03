@@ -13,7 +13,7 @@ public class Server {
 
 	public void run() {
 		StreamService serviceImpl = new ServiceImpl();
-		server = NettyServerBuilder.forPort(50010).addService(StreamServiceGrpc.bindService(serviceImpl)).build();
+		server = NettyServerBuilder.forPort(port).addService(StreamServiceGrpc.bindService(serviceImpl)).build();
 		try {
 			server.start();
 			System.out.println("Server start success on port:" + port);
